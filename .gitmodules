@@ -1,3 +1,45 @@
 [submodule "vimfiles/bundle/vim-airline"]
 	path = vimfiles/bundle/vim-airline
 	url = https://github.com/bling/vim-airline.git
+[submodule "vimfiles/bundle/vim-notes"]
+	path = vimfiles/bundle/vim-notes
+	url = https://github.com/xolox/vim-notes.git
+[submodule "vimfiles/bundle/vim-misc"]
+	path = vimfiles/bundle/vim-misc
+	url = https://github.com/xolox/vim-misc.git
+[submodule "vimfiles/bundle/vim-indent-guides"]
+	path = vimfiles/bundle/vim-indent-guides
+	url = https://github.com/nathanaelkane/vim-indent-guides.git
+[submodule "vimfiles/bundle/perforce"]
+	path = vimfiles/bundle/perforce
+	url = https://github.com/vim-scripts/perforce.vim.git
+[submodule "vimfiles/bundle/ctrlp"]
+	path = vimfiles/bundle/ctrlp
+	url = https://github.com/kien/ctrlp.vim.git
+[submodule "vimfiles/bundle/undotree"]
+	path = vimfiles/bundle/undotree
+	url = https://github.com/mbbill/undotree.git
+[submodule "vimfiles/bundle/buffet"]
+	path = vimfiles/bundle/buffet
+	url = https://github.com/sandeepcr529/Buffet.vim.git
+[submodule "vimfiles/bundle/vim-commentary"]
+	path = vimfiles/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule "vimfiles/bundle/ctrlp-funky"]
+	path = vimfiles/bundle/ctrlp-funky
+	url = https://github.com/tacahiroy/ctrlp-funky.git
+[submodule "vimfiles/bundle/vim-findstr"]
+	path = vimfiles/bundle/vim-findstr
+	url = https://github.com/vim-scripts/findstr.vim.git
+[submodule "vimfiles/bundle/vim-alternativefiles"]
+	path = vimfiles/bundle/vim-alternativefiles
+	url = https://github.com/vim-scripts/a.vim.git
+[submodule "vimfiles/bundle/vim-dispatch"]
+	path = vimfiles/bundle/vim-dispatch
+	url = https://github.com/tpope/vim-dispatch.git
+[submodule "vimfiles/bundle/ultisnips"]
+	path = vimfiles/bundle/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "vimfiles/bundle/vim-csv"]
+	path = vimfiles/bundle/vim-csv
+	url = https://github.com/chrisbra/csv.vim.git
