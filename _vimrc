@@ -124,7 +124,7 @@ filetype indent on                              " Enable filetype specific inden
     "  \ 'file': '\.class$\|\.jar$',
     "  \ }
 
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep -v "\.class$\|\.jar$" | grep -v "\\build\\"'
+    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
 
     let g:ctrlp_extensions = ['funky']
 
@@ -160,6 +160,11 @@ filetype indent on                              " Enable filetype specific inden
 let g:molokai_original=1
 " }}}
 
+" Powerline {{{
+let g:Powerline_cache_dir = "d:\\temp\\"
+" }}}
+
+
 let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
 
 if (has('gui_running'))
@@ -167,7 +172,7 @@ if (has('gui_running'))
     "set guifont=Source_Code_Pro_Semibold:h9:cANSI
     "set guifont=Consolas_for_Powerline_FixedD:h9:cANSI
     "set guifont=Mensch_for_Powerline:h9:cANSI
-    set guifont=Droid_Sans_Mono:h9:cANSI
+    set guifont=Droid_Sans_Mono:h10:cANSI
     set guifontwide=NSimsun:h10
     set background=dark
 
@@ -184,7 +189,10 @@ endif
 "colorscheme xemacs
 "colorscheme badwolf
 "colorscheme solarized
-colorscheme molokai
+"colorscheme visualstudio
+"colorscheme molokai
+"colorscheme Laravel
+colorscheme distinguished
 
 " Mappings {{{
   "  Mapping to allow quick directory change to directory of current file.
@@ -211,6 +219,9 @@ colorscheme molokai
 
   " Clean trailing whitespace
   nnoremap <leader>w mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+
+  " Invoke CtrlP with the word under the cursor.
+  nmap <leader>lw :CtrlP<CR><C-\>w
 "}}}
 
 set diffexpr=MyDiff()
@@ -311,4 +322,21 @@ nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
 " Create a mapping (e.g. in your .vimrc) like this:
 nmap <C-W>! <Plug>Kwbd
 
-let g:Powerline_cache_dir = "d:\\temp\\"
+
+function! SetCursorColor()
+  highlight Cursor guifg=black guibg=steelblue
+  highlight iCursor guifg=black guibg=steelblue
+  highlight vCursor guifg=black guibg=steelblue
+endfunction
+
+autocmd ColorScheme * call SetCursorColor()
+
+function! CallVisualStudio() 
+  silent !"d:\\bin\\OpenFileToLine.exe %:p " . line(".") . " " . col(".")
+endfunction
+
+function! CallRemoteVim()
+  silent !"c:\\
+endfunction
+
+map <leader>j call CallVisualStudio<CR>
