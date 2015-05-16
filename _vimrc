@@ -1,6 +1,6 @@
 "srt vim: set fmr={{{,}}} fdm=marker et ts=2 sw=2 sts=2 :
 
-if has("win32")
+if has("win32") || has("win64")
   " They map $HOME to H:\ for some reason. I really don't want that.
   let $HOME = $USERPROFILE
 endif
@@ -17,7 +17,7 @@ filetype indent on                              " Enable filetype specific inden
 
 " General Settings {{{
     if has("unix")
-      set viminfo+=n$HOME . "//.viminfo"
+      set viminfo+=n~/.viminfo
     else
       set viminfo+=n$HOME\\_viminfo            " don't write the _viminfo to the network.
     endif
@@ -52,8 +52,8 @@ filetype indent on                              " Enable filetype specific inden
     set nobackup                                    " do not create backup files EVER
     set noswapfile                                  " do not create swap files EVER
     if has("unix")
-      set backupdir=$HOME . "//.vim//backup"
-      set directory=$HOME . "\\.vim\\backup"
+      set backupdir=~/.vim/backup/
+      set directory=~/.vim/backup/
     else
       set backupdir=c:\TEMP                           " If you do, do it in a sane place
       set directory=c:\TEMP                           " Same goes for swap
@@ -120,7 +120,7 @@ filetype indent on                              " Enable filetype specific inden
 
     if has("persistent_undo")
       if has("unix")
-        set undodir = $HOME . ".vim//cache//vimundo//"
+        set undodir = "~/.vim/cache/vimundo//"
       else
         set undodir = "d:\\temp\\cache\\vimundo\\"
       endif
@@ -138,10 +138,8 @@ filetype indent on                              " Enable filetype specific inden
     let g:ctrlp_clear_cache_on_exit = 0             " don't clear the cache
 
     if has("unix")
-      let g:ctrlp_cache_dir = $HOME . ".vim//cache//ctrlp"   " where to cache.
-      let g:ctrlp_cache_dir = $HOME . "'.vim//cache//ctrlp"   " where to cache.
+      let g:ctrlp_cache_dir = "~/.vim/cache/ctrlp"   " where to cache.
     else
-      let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
       let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
     endif
 
@@ -221,7 +219,7 @@ call SetCursorColor()
 " }}}
 
 if has("unix")
-  let g:notes_directories=[$HOME . '.vim//notes//']
+  let g:notes_directories=["~/.vim/notes//"]
 else
   let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
 endif
