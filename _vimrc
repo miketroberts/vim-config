@@ -1,7 +1,9 @@
 "srt vim: set fmr={{{,}}} fdm=marker et ts=2 sw=2 sts=2 :
 
-" They map $HOME to H:\ for some reason. I really don't want that.
-let $HOME = $USERPROFILE
+if has("win32")
+  " They map $HOME to H:\ for some reason. I really don't want that.
+  let $HOME = $USERPROFILE
+endif
 
 set nocompatible
 
@@ -14,7 +16,11 @@ filetype plugin on                              " Enable filetype specific plugi
 filetype indent on                              " Enable filetype specific indentation rules.
 
 " General Settings {{{
-    set viminfo+=n$USERPROFILE\\_viminfo            " don't write the _viminfo to the network.
+    if has("unix")
+      set viminfo+=n$HOME . "//.viminfo"
+    else
+      set viminfo+=n$HOME\\_viminfo            " don't write the _viminfo to the network.
+    endif
 
     set nowrap                                      " don't wrap lines
     set textwidth=0                                 " no line length
@@ -45,8 +51,13 @@ filetype indent on                              " Enable filetype specific inden
 
     set nobackup                                    " do not create backup files EVER
     set noswapfile                                  " do not create swap files EVER
-    set backupdir=c:\TEMP                           " If you do, do it in a sane place
-    set directory=c:\TEMP                           " Same goes for swap
+    if has("unix")
+      set backupdir=$HOME . "//.vim//backup"
+      set directory=$HOME . "\\.vim\\backup"
+    else
+      set backupdir=c:\TEMP                           " If you do, do it in a sane place
+      set directory=c:\TEMP                           " Same goes for swap
+    endif
 
     set scrolloff=3                                 " Start scrolling when 3 lines from the end of the buffer.
     set sidescroll=5                                " Scroll horizontally 5 chars at a time.
@@ -108,7 +119,11 @@ filetype indent on                              " Enable filetype specific inden
     set lazyredraw                                  " Required for airline.
 
     if has("persistent_undo")
-      set undodir = "d:\\temp\\cache\\vimundo\\"
+      if has("unix")
+        set undodir = $HOME . ".vim//cache//vimundo//"
+      else
+        set undodir = "d:\\temp\\cache\\vimundo\\"
+      endif
       set undofile
     endif
 "}}}
@@ -121,7 +136,14 @@ filetype indent on                              " Enable filetype specific inden
     let g:ctrlp_dotfiles = 0                        " don't look at dotfiles.
     let g:ctrlp_use_caching = 1                     " catch the results.
     let g:ctrlp_clear_cache_on_exit = 0             " don't clear the cache
-    let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+
+    if has("unix")
+      let g:ctrlp_cache_dir = $HOME . ".vim//cache//ctrlp"   " where to cache.
+      let g:ctrlp_cache_dir = $HOME . "'.vim//cache//ctrlp"   " where to cache.
+    else
+      let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+      let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+    endif
 
     " custom ignore does not work as we are using a custom user_command
     "let g:ctrlp_custom_ignore = {
@@ -129,7 +151,11 @@ filetype indent on                              " Enable filetype specific inden
     "  \ 'file': '\.class$\|\.jar$',
     "  \ }
 
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
+    if has("unix")
+      let g:ctrlp_user_command = 'find . -name "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" -print | grep -v "*\\build\\*"'
+    else
+      let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
+    endif
 
     let g:ctrlp_extensions = ['funky']
 
@@ -194,7 +220,11 @@ call SetCursorColor()
 "hi ColorColumn=#d0d0d0
 " }}}
 
-let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
+if has("unix")
+  let g:notes_directories=[$HOME . '.vim//notes//']
+else
+  let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
+endif
 
 if (has('gui_running'))
     set guioptions=egt
