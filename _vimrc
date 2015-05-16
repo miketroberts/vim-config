@@ -173,10 +173,10 @@ filetype indent on                              " Enable filetype specific inden
 " }}}
 
 " Airline {{{
-  let g:airline_theme='zenburn'
+"  let g:airline_theme='zenburn'
   let g:airline_powerline_fonts=0
-  let g:airline_enable_csv=1
-  let g:airline_detect_whitespace=0
+"  let g:airline_enable_csv=1
+  let g:airline#extensions#whitespace#enabled=0
   let g:airline_left_sep=''
   let g:airline_right_sep=''
 " }}}
