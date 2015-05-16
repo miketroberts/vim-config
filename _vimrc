@@ -1,4 +1,8 @@
 "srt vim: set fmr={{{,}}} fdm=marker et ts=2 sw=2 sts=2 :
+
+" They map $HOME to H:\ for some reason. I really don't want that.
+let $HOME = $USERPROFILE
+
 set nocompatible
 
 filetype off
@@ -98,8 +102,9 @@ filetype indent on                              " Enable filetype specific inden
     set fileencodings=ucs-bom,utf8,prc
     set ffs=unix,dos
 
-    set listchars=tab:»\ ,eol:¬,extends:>,precedes:<,trail:·
-    set list
+    set listchars=tab:»\ ,extends:>,precedes:<,trail:□
+    "set listchars=tab:»\ ,eol:¬,extends:>,precedes:<,trail:□
+    "set list                                       " Set this on a per FT basis
     set lazyredraw                                  " Required for airline.
 
     if has("persistent_undo")
@@ -144,7 +149,7 @@ filetype indent on                              " Enable filetype specific inden
 " }}}
 
 " Airline {{{
-  let g:airline_theme='molokai'
+  let g:airline_theme='zenburn'
   let g:airline_powerline_fonts=0
   let g:airline_enable_csv=1
   let g:airline_detect_whitespace=0
@@ -164,35 +169,55 @@ let g:molokai_original=1
 let g:Powerline_cache_dir = "d:\\temp\\"
 " }}}
 
+" UltiSnips {{{
+" }}}
+
+"  Eclim {{{
+let g:EclimLogLevel = "trace"
+let g:EclimDisabled = 0
+"  }}}
+
+" Vim-Filer {{
+"let g:vimfiler_as_default_explorer = 1
+" }}}
+
+" Custom Colors {{{
+function! SetCursorColor()
+  highlight Cursor guifg=black guibg=steelblue
+  highlight iCursor guifg=black guibg=steelblue
+  highlight vCursor guifg=black guibg=steelblue
+endfunction
+
+autocmd ColorScheme * call SetCursorColor()
+call SetCursorColor()
+
+"hi ColorColumn=#d0d0d0
+" }}}
 
 let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
 
 if (has('gui_running'))
     set guioptions=egt
     "set guifont=Source_Code_Pro_Semibold:h9:cANSI
-    "set guifont=Consolas_for_Powerline_FixedD:h9:cANSI
+    "set guifont=Consolas:h9:cANSI
     "set guifont=Mensch_for_Powerline:h9:cANSI
-    set guifont=Droid_Sans_Mono:h10:cANSI
+    set guifont=Droid_Sans_Mono:h8:cANSI
+    "set guifont=Monaco:h9:cANSI
+    "set guifont=DejaVu_Sans_Mono:h8:cANSI
+    "set guifont=Fantasque_Sans_Mono:h10:cANSI
+    "set guifont=@M+_2m_regular:h10:cANSI
     set guifontwide=NSimsun:h10
     set background=dark
 
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:hor50-vCursor-blinkon0
+    set guicursor+=i-ci:hor25-vCursor-blinkon0
 endif
 
-"colorscheme Slime_mike
-"colorscheme jellybeans
-"colorscheme eclipse
-"colorscheme Sourlick
-"colorscheme Tomorrow-Night
-"colorscheme xemacs
-"colorscheme badwolf
-"colorscheme solarized
-"colorscheme visualstudio
-"colorscheme molokai
-"colorscheme Laravel
-colorscheme distinguished
+"colorscheme zenburn 
+"colorscheme corporation
+"colorscheme base16-ateliersavanna
+colorscheme base16-flat
 
 " Mappings {{{
   "  Mapping to allow quick directory change to directory of current file.
@@ -322,14 +347,6 @@ nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
 " Create a mapping (e.g. in your .vimrc) like this:
 nmap <C-W>! <Plug>Kwbd
 
-
-function! SetCursorColor()
-  highlight Cursor guifg=black guibg=steelblue
-  highlight iCursor guifg=black guibg=steelblue
-  highlight vCursor guifg=black guibg=steelblue
-endfunction
-
-autocmd ColorScheme * call SetCursorColor()
 
 function! CallVisualStudio() 
   silent !"d:\\bin\\OpenFileToLine.exe %:p " . line(".") . " " . col(".")
