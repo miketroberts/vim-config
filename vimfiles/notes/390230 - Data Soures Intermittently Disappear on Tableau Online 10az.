@@ -1,0 +1,15 @@
+390230 - Data Soures Intermittently Disappear on Tableau Online 10az.
+
+To get started enter a title for your note above. When you’re ready to save
+your note just use Vim’s :write or :update commands, a filename will be picked
+automatically based on the title.
+
+index=online sourcetype=searchserver host=PDSC9IDXR1342 "publishing core=unified_datasource state=active"
+
+                                    * * *
+
+The notes plug-in comes with self hosting documentation. To jump to these notes
+position your cursor on the highlighted name and press ‘gf’ in normal mode:
+
+ • Note taking syntax
+ • Note taking commands

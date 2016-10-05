@@ -58,7 +58,7 @@ endif
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set colorcolumn=120
+"set colorcolumn=join(range(120,999),",")
 set list
 let java_space_errors=1
 let java_no_trail_space_error=1
