@@ -52,3 +52,6 @@
 [submodule "vimfiles/bundle/vim-lapis256"]
 	path = vimfiles/bundle/vim-lapis256
 	url = https://github.com/andrwb/vim-lapis256.git
+[submodule "vimfiles/bundle/tender"]
+	path = vimfiles/bundle/tender
+	url = https://github.com/jacoborus/tender.vim.git
