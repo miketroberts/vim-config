@@ -55,3 +55,6 @@
 [submodule "vimfiles/bundle/tender"]
 	path = vimfiles/bundle/tender
 	url = https://github.com/jacoborus/tender.vim.git
+[submodule "vimfiles/bundle/vim-perforce"]
+	path = vimfiles/bundle/vim-perforce
+	url = https://github.com/nfvs/vim-perforce.git
