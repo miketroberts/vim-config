@@ -58,3 +58,6 @@
 [submodule "vimfiles/bundle/vim-perforce"]
 	path = vimfiles/bundle/vim-perforce
 	url = https://github.com/nfvs/vim-perforce.git
+[submodule "vimfiles/bundle/vim-railscasts-theme"]
+	path = vimfiles/bundle/vim-railscasts-theme
+	url = https://github.com/jpo/vim-railscasts-theme.git
