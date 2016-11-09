@@ -43,3 +43,6 @@
 [submodule "vimfiles/bundle/vim-csv"]
 	path = vimfiles/bundle/vim-csv
 	url = https://github.com/chrisbra/csv.vim.git
+[submodule "vimfiles/bundle/vim-perforce"]
+	path = vimfiles/bundle/vim-perforce
+	url = https://github.com/nfvs/vim-perforce.git
