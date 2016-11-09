@@ -132,15 +132,20 @@ filetype indent on                              " Enable filetype specific inden
     let g:ctrlp_regexp = 1                          " regexp matching mode
     let g:ctrlp_switch_buffer = 1                   " if file already open in current tab, switch to it.
     let g:ctrlp_working_path_mode = 2               " search up for a marker to define root directory.
-    let g:ctrlp_root_markers = ['.root\']           " what is that marker?
     let g:ctrlp_dotfiles = 0                        " don't look at dotfiles.
     let g:ctrlp_use_caching = 1                     " catch the results.
     let g:ctrlp_clear_cache_on_exit = 0             " don't clear the cache
+    let g:ctrlp_working_path_mode = 0
 
     if has("unix")
+      let g:ctrlp_root_markers = ['.root/']           " what is that marker?
       let g:ctrlp_cache_dir = "~/.vim/cache/ctrlp"   " where to cache.
+      let g:ctrlp_user_command = 'cat %s/.root/osx.file.list'
+      "let g:ctrlp_user_command = 'find %s -type f -regex ".*\.java$"'
     else
+      let g:ctrlp_root_markers = ['.root\']              " what is that marker?
       let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+      let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
     endif
 
     " custom ignore does not work as we are using a custom user_command
@@ -148,12 +153,6 @@ filetype indent on                              " Enable filetype specific inden
     "  \ 'dir': 'build$',
     "  \ 'file': '\.class$\|\.jar$',
     "  \ }
-
-    if has("unix")
-      let g:ctrlp_user_command = 'find . -name "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" -print | grep -v "*\\build\\*"'
-    else
-      let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
-    endif
 
     let g:ctrlp_extensions = ['funky']
 
@@ -174,6 +173,7 @@ filetype indent on                              " Enable filetype specific inden
 
 " Airline {{{
 "  let g:airline_theme='zenburn'
+  let g:airline_theme='tender'
   let g:airline_powerline_fonts=0
 "  let g:airline_enable_csv=1
   let g:airline#extensions#whitespace#enabled=0
@@ -194,6 +194,7 @@ let g:Powerline_cache_dir = "d:\\temp\\"
 " }}}
 
 " UltiSnips {{{
+let g:UltisnipsSnippetDirectories=["snippets"]
 " }}}
 
 "  Eclim {{{
@@ -204,6 +205,9 @@ let g:EclimDisabled = 0
 " Vim-Filer {{
 "let g:vimfiler_as_default_explorer = 1
 " }}}
+
+" Vim-Perforce {{
+" }}
 
 " Custom Colors {{{
 function! SetCursorColor()
@@ -229,12 +233,14 @@ if (has('gui_running'))
     "set guifont=Source_Code_Pro_Semibold:h9:cANSI
     "set guifont=Consolas:h9:cANSI
     "set guifont=Mensch_for_Powerline:h9:cANSI
-    set guifont=Droid_Sans_Mono:h8:cANSI
+    "set guifont=Droid_Sans_Mono_Dotted:h11
+    "set guifont=Fira Code Retina:h12
     "set guifont=Monaco:h9:cANSI
     "set guifont=DejaVu_Sans_Mono:h8:cANSI
     "set guifont=Fantasque_Sans_Mono:h10:cANSI
     "set guifont=@M+_2m_regular:h10:cANSI
-    set guifontwide=NSimsun:h10
+    "set guifontwide=NSimsun:h10
+    set guifont=Inconsolata-g:h11
     set background=dark
 
     set guicursor=n-c:block-Cursor-blinkon0
@@ -245,7 +251,10 @@ endif
 "colorscheme zenburn 
 "colorscheme corporation
 "colorscheme base16-ateliersavanna
-colorscheme base16-flat
+"colorscheme base16-google
+"colorscheme tender
+colorscheme emacs
+let macvim_skip_colorscheme=1
 
 " Mappings {{{
   "  Mapping to allow quick directory change to directory of current file.
@@ -385,3 +394,9 @@ function! CallRemoteVim()
 endfunction
 
 map <leader>j call CallVisualStudio<CR>
+
+if has("unix")
+  function! CDServerDev()
+    cd /Volumes/d\$/src/server/server-dev_mroberts3_dev/
+  endfunction
+endif
