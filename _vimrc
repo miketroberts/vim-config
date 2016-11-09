@@ -1,4 +1,10 @@
 "srt vim: set fmr={{{,}}} fdm=marker et ts=2 sw=2 sts=2 :
+
+if has("win32") || has("win64")
+  " They map $HOME to H:\ for some reason. I really don't want that.
+  let $HOME = $USERPROFILE
+endif
+
 set nocompatible
 
 filetype off
@@ -10,7 +16,11 @@ filetype plugin on                              " Enable filetype specific plugi
 filetype indent on                              " Enable filetype specific indentation rules.
 
 " General Settings {{{
-    set viminfo+=n$USERPROFILE\\_viminfo            " don't write the _viminfo to the network.
+    if has("unix")
+      set viminfo+=n~/.viminfo
+    else
+      set viminfo+=n$HOME\\_viminfo            " don't write the _viminfo to the network.
+    endif
 
     set nowrap                                      " don't wrap lines
     set textwidth=0                                 " no line length
@@ -41,8 +51,13 @@ filetype indent on                              " Enable filetype specific inden
 
     set nobackup                                    " do not create backup files EVER
     set noswapfile                                  " do not create swap files EVER
-    set backupdir=c:\TEMP                           " If you do, do it in a sane place
-    set directory=c:\TEMP                           " Same goes for swap
+    if has("unix")
+      set backupdir=~/.vim/backup/
+      set directory=~/.vim/backup/
+    else
+      set backupdir=c:\TEMP                           " If you do, do it in a sane place
+      set directory=c:\TEMP                           " Same goes for swap
+    endif
 
     set scrolloff=3                                 " Start scrolling when 3 lines from the end of the buffer.
     set sidescroll=5                                " Scroll horizontally 5 chars at a time.
@@ -98,12 +113,17 @@ filetype indent on                              " Enable filetype specific inden
     set fileencodings=ucs-bom,utf8,prc
     set ffs=unix,dos
 
-    set listchars=tab:»\ ,eol:¬,extends:>,precedes:<,trail:·
-    set list
+    set listchars=tab:»\ ,extends:>,precedes:<,trail:□
+    "set listchars=tab:»\ ,eol:¬,extends:>,precedes:<,trail:□
+    "set list                                       " Set this on a per FT basis
     set lazyredraw                                  " Required for airline.
 
     if has("persistent_undo")
-      set undodir = "d:\\temp\\cache\\vimundo\\"
+      if has("unix")
+        set undodir = "~/.vim/cache/vimundo//"
+      else
+        set undodir = "d:\\temp\\cache\\vimundo\\"
+      endif
       set undofile
     endif
 "}}}
@@ -112,19 +132,27 @@ filetype indent on                              " Enable filetype specific inden
     let g:ctrlp_regexp = 1                          " regexp matching mode
     let g:ctrlp_switch_buffer = 1                   " if file already open in current tab, switch to it.
     let g:ctrlp_working_path_mode = 2               " search up for a marker to define root directory.
-    let g:ctrlp_root_markers = ['.root\']           " what is that marker?
     let g:ctrlp_dotfiles = 0                        " don't look at dotfiles.
     let g:ctrlp_use_caching = 1                     " catch the results.
     let g:ctrlp_clear_cache_on_exit = 0             " don't clear the cache
-    let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+    let g:ctrlp_working_path_mode = 0
+
+    if has("unix")
+      let g:ctrlp_root_markers = ['.root/']           " what is that marker?
+      let g:ctrlp_cache_dir = "~/.vim/cache/ctrlp"   " where to cache.
+      let g:ctrlp_user_command = 'cat %s/.root/osx.file.list'
+      "let g:ctrlp_user_command = 'find %s -type f -regex ".*\.java$"'
+    else
+      let g:ctrlp_root_markers = ['.root\']              " what is that marker?
+      let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
+      let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
+    endif
 
     " custom ignore does not work as we are using a custom user_command
     "let g:ctrlp_custom_ignore = {
     "  \ 'dir': 'build$',
     "  \ 'file': '\.class$\|\.jar$',
     "  \ }
-
-    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d | grep "\.java$\|\.cpp$|\.h$|\.rb$|\.xml$$" | grep -v "*\\build\\*"'
 
     let g:ctrlp_extensions = ['funky']
 
@@ -144,10 +172,11 @@ filetype indent on                              " Enable filetype specific inden
 " }}}
 
 " Airline {{{
-  let g:airline_theme='molokai'
+"  let g:airline_theme='zenburn'
+  let g:airline_theme='tender'
   let g:airline_powerline_fonts=0
-  let g:airline_enable_csv=1
-  let g:airline_detect_whitespace=0
+"  let g:airline_enable_csv=1
+  let g:airline#extensions#whitespace#enabled=0
   let g:airline_left_sep=''
   let g:airline_right_sep=''
 " }}}
@@ -164,35 +193,68 @@ let g:molokai_original=1
 let g:Powerline_cache_dir = "d:\\temp\\"
 " }}}
 
+" UltiSnips {{{
+let g:UltisnipsSnippetDirectories=["snippets"]
+" }}}
 
-let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
+"  Eclim {{{
+let g:EclimLogLevel = "trace"
+let g:EclimDisabled = 0
+"  }}}
+
+" Vim-Filer {{
+"let g:vimfiler_as_default_explorer = 1
+" }}}
+
+" Vim-Perforce {{
+" }}
+
+" Custom Colors {{{
+function! SetCursorColor()
+  highlight Cursor guifg=black guibg=steelblue
+  highlight iCursor guifg=black guibg=steelblue
+  highlight vCursor guifg=black guibg=steelblue
+endfunction
+
+autocmd ColorScheme * call SetCursorColor()
+call SetCursorColor()
+
+"hi ColorColumn=#d0d0d0
+" }}}
+
+if has("unix")
+  let g:notes_directories=["~/.vim/notes//"]
+else
+  let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
+endif
 
 if (has('gui_running'))
     set guioptions=egt
     "set guifont=Source_Code_Pro_Semibold:h9:cANSI
-    "set guifont=Consolas_for_Powerline_FixedD:h9:cANSI
+    "set guifont=Consolas:h9:cANSI
     "set guifont=Mensch_for_Powerline:h9:cANSI
-    set guifont=Droid_Sans_Mono:h10:cANSI
-    set guifontwide=NSimsun:h10
+    "set guifont=Droid_Sans_Mono_Dotted:h11
+    "set guifont=Fira Code Retina:h12
+    "set guifont=Monaco:h9:cANSI
+    "set guifont=DejaVu_Sans_Mono:h8:cANSI
+    "set guifont=Fantasque_Sans_Mono:h10:cANSI
+    "set guifont=@M+_2m_regular:h10:cANSI
+    "set guifontwide=NSimsun:h10
+    set guifont=Inconsolata-g:h11
     set background=dark
 
     set guicursor=n-c:block-Cursor-blinkon0
     set guicursor+=v:block-vCursor-blinkon0
-    set guicursor+=i-ci:hor50-vCursor-blinkon0
+    set guicursor+=i-ci:hor25-vCursor-blinkon0
 endif
 
-"colorscheme Slime_mike
-"colorscheme jellybeans
-"colorscheme eclipse
-"colorscheme Sourlick
-"colorscheme Tomorrow-Night
-"colorscheme xemacs
-"colorscheme badwolf
-"colorscheme solarized
-"colorscheme visualstudio
-"colorscheme molokai
-"colorscheme Laravel
-colorscheme distinguished
+"colorscheme zenburn 
+"colorscheme corporation
+"colorscheme base16-ateliersavanna
+"colorscheme base16-google
+"colorscheme tender
+colorscheme emacs
+let macvim_skip_colorscheme=1
 
 " Mappings {{{
   "  Mapping to allow quick directory change to directory of current file.
@@ -323,14 +385,6 @@ nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
 nmap <C-W>! <Plug>Kwbd
 
 
-function! SetCursorColor()
-  highlight Cursor guifg=black guibg=steelblue
-  highlight iCursor guifg=black guibg=steelblue
-  highlight vCursor guifg=black guibg=steelblue
-endfunction
-
-autocmd ColorScheme * call SetCursorColor()
-
 function! CallVisualStudio() 
   silent !"d:\\bin\\OpenFileToLine.exe %:p " . line(".") . " " . col(".")
 endfunction
@@ -340,3 +394,9 @@ function! CallRemoteVim()
 endfunction
 
 map <leader>j call CallVisualStudio<CR>
+
+if has("unix")
+  function! CDServerDev()
+    cd /Volumes/d\$/src/server/server-dev_mroberts3_dev/
+  endfunction
+endif
