@@ -67,5 +67,5 @@ let java_no_tab_space_error=1
 " Eclim uses the sign column, however if there are no symbols, it will
 " appear/disapear. Force it to always appear by defining a dummy symbol
 " and forcing it into every buffer.
-autocmd BufEnter * sign define dummy
-autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
+"autocmd BufEnter * sign define dummy
+"autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
