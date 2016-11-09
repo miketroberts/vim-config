@@ -140,7 +140,11 @@ filetype indent on                              " Enable filetype specific inden
     if has("unix")
       let g:ctrlp_root_markers = ['.root/']           " what is that marker?
       let g:ctrlp_cache_dir = "~/.vim/cache/ctrlp"   " where to cache.
-      let g:ctrlp_user_command = 'cat %s/.root/osx.file.list'
+      if has("mac")
+        let g:ctrlp_user_command = 'cat %s/.root/osx.file.list'
+      else
+        let g:ctrlp_user_command = 'cat %s/.root/linux.file.list'
+      end
       "let g:ctrlp_user_command = 'find %s -type f -regex ".*\.java$"'
     else
       let g:ctrlp_root_markers = ['.root\']              " what is that marker?
