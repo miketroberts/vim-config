@@ -63,6 +63,13 @@ set list
 let java_space_errors=1
 let java_no_trail_space_error=1
 let java_no_tab_space_error=1
+let java_highlight_all=1
+let java_highlight_debug=1
+let java_ignore_javadoc=1
+let java_highlight_java_lang_ids=1
+let java_highlight_functions="style"
+let java_minlines = 150
+let java_comment_strings=1
 
 " Eclim uses the sign column, however if there are no symbols, it will
 " appear/disapear. Force it to always appear by defining a dummy symbol
