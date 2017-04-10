@@ -143,9 +143,8 @@ filetype indent on                              " Enable filetype specific inden
       if has("mac")
         let g:ctrlp_user_command = 'cat %s/.root/osx.file.list'
       else
-        let g:ctrlp_user_command = 'cat %s/.root/linux.file.list'
+        let g:ctrlp_user_command = 'find %s -type f -regex ".*\.java$"'
       end
-      "let g:ctrlp_user_command = 'find %s -type f -regex ".*\.java$"'
     else
       let g:ctrlp_root_markers = ['.root\']              " what is that marker?
       let g:ctrlp_cache_dir = 'd:\\temp\\cache\\ctrlp'   " where to cache.
@@ -203,7 +202,7 @@ let g:UltisnipsSnippetDirectories=["snippets"]
 
 "  Eclim {{{
 let g:EclimLogLevel = "trace"
-let g:EclimDisabled = 0
+"let g:EclimDisabled = 0
 "  }}}
 
 " Vim-Filer {{
@@ -232,6 +231,9 @@ else
   let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
 endif
 
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 if (has('gui_running'))
     set guioptions=egt
     "set guifont=Source_Code_Pro_Semibold:h9:cANSI
@@ -258,6 +260,8 @@ endif
 "colorscheme base16-google
 "colorscheme tender
 "colorscheme emacs
+set background=dark
+colorscheme gruvbox
 let macvim_skip_colorscheme=1
 
 " Mappings {{{
@@ -290,30 +294,30 @@ let macvim_skip_colorscheme=1
   nmap <leader>lw :CtrlP<CR><C-\>w
 "}}}
 
-set diffexpr=MyDiff()
-function! MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
+"set diffexpr=MyDiff()
+"function! MyDiff()
+"  let opt = '-a --binary '
+"  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+"  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+"  let arg1 = v:fname_in
+"  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+"  let arg2 = v:fname_new
+"  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+"  let arg3 = v:fname_out
+"  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+"  let eq = ''
+"  if $VIMRUNTIME =~ ' '
+"    if &sh =~ '\<cmd'
+"      let cmd = '""' . $VIMRUNTIME . '\diff"'
+"      let eq = '"'
+"    else
+"      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+"    endif
+"  else
+"    let cmd = $VIMRUNTIME . '\diff'
+"  endif
+"  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+"endfunction
 
 "here is a more exotic version of my original Kwbd script
 "delete the buffer; keep windows; create a scratch buffer if no buffers left

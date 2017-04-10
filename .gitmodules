@@ -27,7 +27,8 @@
 	url = https://github.com/tpope/vim-commentary.git
 [submodule "vimfiles/bundle/ctrlp-funky"]
 	path = vimfiles/bundle/ctrlp-funky
-	url = https://github.com/tacahiroy/ctrlp-funky.git
+    url = https://github.com/tacahiroy/ctrlp-funky.git
+    ignore = untracked
 [submodule "vimfiles/bundle/vim-findstr"]
 	path = vimfiles/bundle/vim-findstr
 	url = https://github.com/vim-scripts/findstr.vim.git
