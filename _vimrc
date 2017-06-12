@@ -208,9 +208,9 @@ let g:lightline = {
 " Vim-Perforce {{
 " }}
 
-VimWiki {{
+"VimWiki {{
   let g:vimwiki_list = [{'path': '~/Documents/Notes/workwiki/'}]
-}}
+"}}
 
 " Custom Colors {{{
 function! SetCursorColor()
