@@ -174,16 +174,6 @@ filetype indent on                              " Enable filetype specific inden
     let g:indent_guides_guide_level = 1
 " }}}
 
-" Airline {{{
-"  let g:airline_theme='zenburn'
-  let g:airline_theme='molokai'
-  let g:airline_powerline_fonts=0
-"  let g:airline_enable_csv=1
-  "let g:airline#extensions#whitespace#enabled=0
-  let g:airline_left_sep='|'
-  let g:airline_right_sep='|'
-" }}}
-
 " Solarized {{{
   let g:solarized_visibility="high"
 " }}}
@@ -204,6 +194,12 @@ let g:UltisnipsSnippetDirectories=["snippets"]
 let g:EclimLogLevel = "trace"
 "let g:EclimDisabled = 0
 "  }}}
+
+" Lightline {{{
+let g:lightline = {
+  \ 'colorscheme': 'one',
+  \}
+" }}}
 
 " Vim-Filer {{
 "let g:vimfiler_as_default_explorer = 1
@@ -247,6 +243,7 @@ if (has('gui_running'))
     "set guifont=@M+_2m_regular:h10:cANSI
     "set guifontwide=NSimsun:h10
     set guifont=Inconsolata-g:h11
+    set guifont=Bitstream_Vera_Sans_Mono:h10:cANSI:qDRAFT
     set background=dark
 
     set guicursor=n-c:block-Cursor-blinkon0
@@ -261,7 +258,7 @@ endif
 "colorscheme tender
 "colorscheme emacs
 set background=dark
-colorscheme gruvbox
+colorscheme PaperColor
 let macvim_skip_colorscheme=1
 
 " Mappings {{{

@@ -1,6 +1,3 @@
-[submodule "vimfiles/bundle/vim-airline"]
-	path = vimfiles/bundle/vim-airline
-	url = https://github.com/bling/vim-airline.git
 [submodule "vimfiles/bundle/vim-notes"]
 	path = vimfiles/bundle/vim-notes
 	url = https://github.com/xolox/vim-notes.git
