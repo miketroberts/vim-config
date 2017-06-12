@@ -71,3 +71,6 @@
 [submodule "vimfiles/bundle/vim-gnupg"]
 	path = vimfiles/bundle/vim-gnupg
 	url = https://github.com/jamessan/vim-gnupg.git
+[submodule "vimfiles/bundle/vimwiki"]
+	path = vimfiles/bundle/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git

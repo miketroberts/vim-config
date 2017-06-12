@@ -212,6 +212,10 @@ let g:EclimLogLevel = "trace"
 " Vim-Perforce {{
 " }}
 
+VimWiki {{
+  let g:vimwiki_list = [{'path': '~/Documents/Notes/workwiki/'}]
+}}
+
 " Custom Colors {{{
 function! SetCursorColor()
   highlight Cursor guifg=black guibg=steelblue
