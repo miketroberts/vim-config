@@ -9,7 +9,7 @@ set nocompatible
 
 filetype off
 call pathogen#infect()
-Helptags
+"Helptags
 
 filetype on                                     " Enable filetype detection.
 filetype plugin on                              " Enable filetype specific plugins.
@@ -96,6 +96,8 @@ filetype indent on                              " Enable filetype specific inden
     set pastetoggle=<F2>                            " Toggle between paste mode and normal mode.
 
     set t_Co=256
+    set t_ut=                                       " Clear the Background Color Erase, or tmux will bleed through.
+                                                    " https://sunaku.github.io/vim-256color-bce.html
 
     let NERDTreeWinPos="right"                      " Move the nerd tree to the other side of the window.
 
@@ -196,9 +198,15 @@ let g:EclimLogLevel = "trace"
 "  }}}
 
 " Lightline {{{
-let g:lightline = {
-  \ 'colorscheme': 'one',
-  \}
+"if (has('gui_running'))
+"  let g:lightline = {
+"    \ 'colorscheme': 'one',
+"    \}
+"else
+  let g:lightline = {
+    \ 'colorscheme': 'landscape',
+    \}
+"endif
 " }}}
 
 " Vim-Filer {{
@@ -231,8 +239,8 @@ else
   let g:notes_directories=['C:\\Users\\mroberts\\Documents\\notes\\']
 endif
 
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 if (has('gui_running'))
     set guioptions=egt
@@ -255,12 +263,6 @@ if (has('gui_running'))
     set guicursor+=i-ci:hor25-vCursor-blinkon0
 endif
 
-"colorscheme zenburn 
-"colorscheme corporation
-"colorscheme base16-ateliersavanna
-"colorscheme base16-google
-"colorscheme tender
-"colorscheme emacs
 set background=dark
 colorscheme PaperColor
 let macvim_skip_colorscheme=1
@@ -294,31 +296,6 @@ let macvim_skip_colorscheme=1
   " Invoke CtrlP with the word under the cursor.
   nmap <leader>lw :CtrlP<CR><C-\>w
 "}}}
-
-"set diffexpr=MyDiff()
-"function! MyDiff()
-"  let opt = '-a --binary '
-"  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-"  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-"  let arg1 = v:fname_in
-"  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-"  let arg2 = v:fname_new
-"  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-"  let arg3 = v:fname_out
-"  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-"  let eq = ''
-"  if $VIMRUNTIME =~ ' '
-"    if &sh =~ '\<cmd'
-"      let cmd = '""' . $VIMRUNTIME . '\diff"'
-"      let eq = '"'
-"    else
-"      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-"    endif
-"  else
-"    let cmd = $VIMRUNTIME . '\diff'
-"  endif
-"  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-"endfunction
 
 "here is a more exotic version of my original Kwbd script
 "delete the buffer; keep windows; create a scratch buffer if no buffers left
@@ -379,33 +356,16 @@ function! s:Kwbd(kwbdStage)
   endif
 endfunction
 
+command! Kwbd call s:Kwbd(1)
+nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
+nmap <C-W>! <Plug>Kwbd
+
 function! s:DefaultWinPosition()
-  winpos 2558, 0
-  set columns=319
-  set lines=78
+  if (has('gui_running'))
+    winpos 2558, 0
+    set columns=319
+    set lines=78
+  endif
 endfunction
 
 command! DefaultWinPosition call s:DefaultWinPosition()<CR>
-
-command! Kwbd call s:Kwbd(1)
-nnoremap <silent> <Plug>Kwbd :<C-u>Kwbd<CR>
-
-" Create a mapping (e.g. in your .vimrc) like this:
-nmap <C-W>! <Plug>Kwbd
-
-
-function! CallVisualStudio() 
-  silent !"d:\\bin\\OpenFileToLine.exe %:p " . line(".") . " " . col(".")
-endfunction
-
-function! CallRemoteVim()
-  silent !"c:\\
-endfunction
-
-map <leader>j call CallVisualStudio<CR>
-
-if has("unix")
-  function! CDServerDev()
-    cd /Volumes/d\$/src/server/server-dev_mroberts3_dev/
-  endfunction
-endif
