@@ -74,3 +74,6 @@
 [submodule "vimfiles/bundle/lightline.vim"]
 	path = vimfiles/bundle/lightline.vim
 	url = https://github.com/itchyny/lightline.vim.git 
+[submodule "vimfiles/bundle/ag.vim"]
+	path = vimfiles/bundle/ag.vim
+	url = https://github.com/rking/ag.vim.git
